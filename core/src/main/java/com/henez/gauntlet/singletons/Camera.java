@@ -1,9 +1,11 @@
 package com.henez.gauntlet.singletons;
 
+import com.henez.gauntlet.datastructures.Numbers;
 import com.henez.gauntlet.drawers.TextDrawer;
 import com.henez.gauntlet.atlas.img.ImgMapBack;
 import com.henez.gauntlet.constants.Constants;
 import com.henez.gauntlet.misc.Timer;
+import com.henez.gauntlet.world.mapobjects.MapActor;
 import lombok.Setter;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.viewport.StretchViewport;
@@ -58,18 +60,18 @@ public class Camera {
         y += addY;
     }
 
-    /*public void setPosCenteredOnMapObject(MapActor obj, int mapW, int mapH) {
+    public void setPosCenteredOnMapObject(MapActor obj, int mapW, int mapH) {
         this.x = Numbers.clamp((int)(obj.getX()+(Constants.tilePixelSize/2)-(Constants.cameraPixelW/2)),0,mapW-Constants.cameraPixelW);
         this.y = Numbers.clamp((int)(obj.getY()+(Constants.tilePixelSize/2)-(Constants.cameraPixelH/2)),0,mapH-Constants.cameraPixelH);
 
-        *//*this.x = (int)(obj.getX()+(Constants.tilePixelSize/2)-(Constants.cameraPixelW/2));
-        this.y = (int)(obj.getY()+(Constants.tilePixelSize/2)-(Constants.cameraPixelH/2));*//*
+        /*this.x = (int)(obj.getX()+(Constants.tilePixelSize/2)-(Constants.cameraPixelW/2));
+        this.y = (int)(obj.getY()+(Constants.tilePixelSize/2)-(Constants.cameraPixelH/2));*/
     }
 
     public void initialPosCenteredOnMapObject(MapActor obj, int mapW, int mapH) {
         setPosCenteredOnMapObject(obj, mapW, mapH);
         snapMapBack();
-    }*/
+    }
 
     public void snapMapBack() {
         mapBackX = x-32;

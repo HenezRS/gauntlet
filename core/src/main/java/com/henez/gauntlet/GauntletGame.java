@@ -2,12 +2,15 @@ package com.henez.gauntlet;
 
 import com.henez.gauntlet.atlas.Atlas;
 import com.henez.gauntlet.drawers.DebugDrawer;
+import com.henez.gauntlet.drawers.ScreenLoadingDrawer;
 import com.henez.gauntlet.drawers.TextureDrawer;
 import com.henez.gauntlet.atlas.img.ImgActors;
+import com.henez.gauntlet.drawers.WorldDrawer;
 import com.henez.gauntlet.input.In;
 import com.henez.gauntlet.misc.Framerate;
 import com.henez.gauntlet.misc.Screenshotter;
 import com.henez.gauntlet.singletons.Camera;
+import com.henez.gauntlet.singletons.ScreenLoading;
 import com.henez.gauntlet.world.World;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
@@ -41,6 +44,7 @@ public class GauntletGame extends BasicGame {
         }
         camera.update();
         framerate.update(delta);
+        ScreenLoading.getInstance().update();
 
         world.update();
     }
@@ -54,9 +58,8 @@ public class GauntletGame extends BasicGame {
     public void render(Graphics g) {
         if(firstDrawReady) {
             camera.setViewPortGame(g);
-            TextureDrawer.getInstance().drawToCamera(g, ImgActors.hero_down_0.asTex(), 32, 32);
-            TextureDrawer.getInstance().drawToCamera(g, ImgActors.hero_right_0.asTex(), 64, 64);
-
+            WorldDrawer.draw(g, world);
+            ScreenLoadingDrawer.draw(g);
             if(drawDebug) {
                 DebugDrawer.draw(g, world, framerate);
             }
