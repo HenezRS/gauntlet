@@ -47,6 +47,13 @@ project(":core") {
 
     dependencies {
         compile "org.mini2Dx:mini2Dx-core:$mini2DxVersion"
+        compileOnly 'org.projectlombok:lombok:1.18.10'
+        annotationProcessor 'org.projectlombok:lombok:1.18.10'
+        implementation 'com.google.code.gson:gson:2.8.5'
+
+        // https://mvnrepository.com/artifact/org.apache.commons/commons-text
+        implementation group: 'org.apache.commons', name: 'commons-text', version: '1.9'
+
     }
 }
 
