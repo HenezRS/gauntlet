@@ -2,6 +2,8 @@ package com.henez.gauntlet.drawers;
 
 import com.henez.gauntlet.singletons.Camera;
 import com.henez.gauntlet.world.World;
+import com.henez.gauntlet.world.map.MapController;
+import com.henez.gauntlet.world.map.gamemap.GameMap;
 import com.henez.gauntlet.world.map.tiles.TileKey;
 import com.henez.gauntlet.world.map.tiles.TileName;
 import com.henez.gauntlet.world.mapobjects.actions.ControlledPlayer;
@@ -16,9 +18,11 @@ public final class WorldDrawer {
         TextureDrawer textureDrawer = TextureDrawer.getInstance();
         ShapeDrawer shapeDrawer = ShapeDrawer.getInstance();
 
-        textureDrawer.drawToWorld(g, world.getCurrentMap().getMapBackTex(), Camera.getInstance().getTotalMapBackX(), Camera.getInstance().getTotalMapBackY());
+        GameMap current = MapController.getInstance().getCurrentMap();
+
+        textureDrawer.drawToWorld(g, current.getMapBackTex(), Camera.getInstance().getTotalMapBackX(), Camera.getInstance().getTotalMapBackY());
         //textureDrawer.drawToWorld(g, world.getCurrentMap().getMapTex(), 0, 0);
-        world.getCurrentMap().getTiles().forEach(tileStack -> {
+        current.getTiles().forEach(tileStack -> {
             if (tileStack.getTile(TileKey.floor).isDrawable()) {
                 textureDrawer.drawToWorld(g, tileStack.getTile(TileKey.floor).getTex(), tileStack.getX(), tileStack.getY());
             }
@@ -28,7 +32,7 @@ public final class WorldDrawer {
         });
 
         ControlledPlayer p = world.getPlayer();
-        p.draw(g, world.getCurrentMap().getTileStackAt(p.getGx(), p.getGy()).contains(TileName.world_forest));
+        p.draw(g, current.getTileStackAt(p.getGx(), p.getGy()).contains(TileName.world_forest));
 
         world.getObjects().forEach(obj -> {
             obj.draw(g);

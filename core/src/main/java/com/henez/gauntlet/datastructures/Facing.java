@@ -107,4 +107,17 @@ public enum Facing {
     public static boolean same(Facing f, Facing ff) {
         return f.dir == ff.dir;
     }
+
+    public static Facing getRandom4() {
+        switch (Numbers.nextIntBetween(0,3)) {
+            case 0:
+                return Facing.down;
+            case 1:
+                return Facing.right;
+            case 2:
+                return Facing.up;
+            default:
+                return Facing.left;
+        }
+    }
 }

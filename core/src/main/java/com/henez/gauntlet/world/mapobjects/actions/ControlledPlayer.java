@@ -5,6 +5,7 @@ import com.henez.gauntlet.datastructures.Facing;
 import com.henez.gauntlet.datastructures.GameList;
 import com.henez.gauntlet.enums.Colors;
 import com.henez.gauntlet.input.In;
+import com.henez.gauntlet.world.map.MapController;
 import com.henez.gauntlet.world.map.gamemap.GameMap;
 import com.henez.gauntlet.world.map.gamemap.MapName;
 import com.henez.gauntlet.world.map.tiles.TileStack;
@@ -43,7 +44,9 @@ public class ControlledPlayer extends MapActor {
         sprite = worldSprite ? this.spriteWorld : this.spriteNormal;
     }
 
-    public void checkMovementIsPressed(GameMap map) {
+    public void checkMovementIsPressed() {
+        GameMap map = MapController.getInstance().getCurrentMap();
+
         if (canBeginNewMove) {
             for(Facing facing : pollInputMovement()) {
                 if(tilesAreFreeForMovement(map, facing) && currentTileAllowsMovement(map, facing)) {

@@ -2,20 +2,20 @@ package com.henez.gauntlet.world.map.gamemap;
 
 import com.henez.gauntlet.atlas.img.ImgBb;
 import com.henez.gauntlet.atlas.img.ImgMapBack;
-import com.henez.gauntlet.world.map.gamemap.impl.CaveMap;
-import com.henez.gauntlet.world.map.gamemap.impl.GrassDarkMap;
-import com.henez.gauntlet.world.map.gamemap.impl.TestMap;
-import com.henez.gauntlet.world.map.gamemap.impl.WorldMap;
+import com.henez.gauntlet.world.map.gamemap.impl.*;
 import com.henez.gauntlet.world.map.tiles.TileTheme;
 import lombok.Getter;
 
 @Getter
 public enum MapName {
-    //misc
+    //test
     test_grass("test grass","test", ImgMapBack.grass, ImgBb.forest),
     grass_dark("grass dark","test", ImgMapBack.grass_dark, ImgBb.forest, TileTheme.dark),
     world("world map","world", ImgMapBack.water, ImgBb.forest),
     cave("cave cave","cave", ImgMapBack.cave, ImgBb.forest),
+
+    //instance test
+    instance_grass("test grass","test", ImgMapBack.grass, ImgBb.forest),
     ;
 
     private final String name;
@@ -46,6 +46,7 @@ public enum MapName {
         case world: return new WorldMap();
         case cave: return new CaveMap();
         case grass_dark: return new GrassDarkMap();
+        case instance_grass: return new I_GrassMap();
         }
         return null;
     }

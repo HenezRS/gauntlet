@@ -1,6 +1,7 @@
 package com.henez.gauntlet.datastructures;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class XY {
@@ -8,6 +9,11 @@ public class XY {
     private int y;
     private int wrapX;
     private int wrapY;
+
+    private int lastAddX = 0;
+    private int lastAddY = 0;
+
+    @Setter private boolean enableWrap = false;
 
     public XY(XY xy) {
         this.x = xy.getX();
@@ -22,7 +28,21 @@ public class XY {
     public void transform(int addX, int addY) {
         x+=addX;
         y+=addY;
-        wrap();
+
+        lastAddX = addX;
+        lastAddY = addY;
+
+        if(enableWrap) {
+            wrap();
+        }
+    }
+
+    public void transformRevert() {
+        x-=lastAddX;
+        y-=lastAddY;
+
+        lastAddX = 0;
+        lastAddY = 0;
     }
 
     public void set(int x, int y) {

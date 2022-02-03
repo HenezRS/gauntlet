@@ -5,8 +5,10 @@ import com.henez.gauntlet.datastructures.GameList;
 import com.henez.gauntlet.misc.Timer;
 import com.henez.gauntlet.singletons.Camera;
 import com.henez.gauntlet.singletons.ScreenLoading;
+import com.henez.gauntlet.world.map.MapController;
 import com.henez.gauntlet.world.map.gamemap.GameMap;
 import com.henez.gauntlet.world.map.gamemap.MapName;
+import com.henez.gauntlet.world.map.gamemap.instances.InstanceController;
 import com.henez.gauntlet.world.map.minimap.Minimap;
 import com.henez.gauntlet.world.mapobjects.MapActor;
 import com.henez.gauntlet.world.mapobjects.actions.ControlledPlayer;
@@ -24,8 +26,10 @@ public class World {
     public static Timer globalTimer = new Timer();
 
     private Camera camera = Camera.getInstance();
+    private Minimap minimap = Minimap.getInstance();
     private ScreenLoading screenLoading = ScreenLoading.getInstance();
-    private GameMap currentMap;
+    private MapController map = MapController.getInstance();
+    private InstanceController instance = InstanceController.getInstance();
     private GameList<MapActor> objects;
     private GameList<StepTeleport> stepTeleports;
     private ControlledPlayer player;
@@ -47,12 +51,12 @@ public class World {
         if(playerInputIsAllowed()) {
             //checkMenuOpen();
             //if (!playerMenuControl.isOpen()) {
-                player.checkMovementIsPressed(currentMap);
+                player.checkMovementIsPressed();
             //}
         }
         player.update();
         objects.forEach(MapActor::update);
-        camera.setPosCenteredOnMapObject(player,currentMap.getPixelW(), currentMap.getPixelH());
+        camera.setPosCenteredOnMapObject(player);
 
         if(player.getMovement().isJustFinishedMovement()) {
             camera.snapMapBack();
@@ -94,8 +98,8 @@ public class World {
     }
 
     private boolean hasTriggeredBoundsTeleport() {
-        if(getCurrentMap().getBoundsTeleport().isHasBounds()) {
-            TeleportDestination dest = getCurrentMap().getBoundsTeleport().playerExceedsBounds(player);
+        if(map.getCurrentMap().getBoundsTeleport().isHasBounds()) {
+            TeleportDestination dest = map.getCurrentMap().getBoundsTeleport().playerExceedsBounds(player);
             if(dest != null) {
                 screenLoading.beginNewTeleport(dest);
                 return true;
@@ -105,9 +109,7 @@ public class World {
     }
 
     private void beginNewMap(GameMap gameMap, int playerGx, int playerGy, Facing playerFacing) {
-        currentMap = gameMap;
-
-        camera.setMapBack(gameMap.getMapBack());
+        map.beginNew(gameMap);
         clearWorld();
 
         if(player==null) {
@@ -118,10 +120,10 @@ public class World {
         //playerData.getEncounterSteps().reset();
         player.setSprite(gameMap.getMapName()==MapName.world);
 
-        Minimap.getInstance().createMinimap(gameMap, player);
-        Camera.getInstance().initialPosCenteredOnMapObject(player,currentMap.getPixelW(), currentMap.getPixelH());
+        minimap.createMinimap(gameMap, player);
+        camera.initialPosCenteredOnMapObject(player);
 
-        addToWorld(currentMap.getStepTiles());
+        addToWorld(gameMap.getStepTiles());
     }
 
     public void addToWorld(MapActor... objectsToAdd) {

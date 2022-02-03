@@ -6,6 +6,7 @@ import com.henez.gauntlet.constants.Constants;
 import com.henez.gauntlet.datastructures.GameList;
 import com.henez.gauntlet.world.World;
 import com.henez.gauntlet.world.map.MapData;
+import com.henez.gauntlet.world.map.MapDataInstanceBuilder;
 import com.henez.gauntlet.world.map.MapDataReader;
 import com.henez.gauntlet.world.map.tiles.*;
 import com.henez.gauntlet.world.teleport.BoundsTeleport;
@@ -16,6 +17,8 @@ import org.mini2Dx.core.graphics.TextureRegion;
 
 @Getter
 public abstract class GameMap {
+    protected boolean isInstance = false;
+
     protected MapName mapName;
     protected MapData mapData;
     protected GameList<TileStack> tiles;
@@ -27,15 +30,32 @@ public abstract class GameMap {
     protected BoundsTeleport boundsTeleport;
 
     public GameMap(MapName mapName) {
-        this.mapName = mapName;
-        this.mapData = new MapDataReader().read(mapName.getPath());
-        loadTilesFromMapData();
-        //mapTex = new MapTexBuilder().draw(mapData.getWidth(), mapData.getHeight(), tiles);
+        init(mapName, false);
+    }
 
+    public GameMap(MapName mapName, boolean isInstance) {
+        init(mapName, isInstance);
+    }
+
+    private void init(MapName mapName, boolean isInstance) {
+        this.isInstance = isInstance;
+        this.mapName = mapName;
         mapBack = mapName.getBack();
         mapBackTex = mapName.getBack().asTex();
         destinations = new GameList<>();
         boundsTeleport = new BoundsTeleport();
+
+        loadMapData();
+        loadTilesFromMapData();
+        //mapTex = new MapTexBuilder().draw(mapData.getWidth(), mapData.getHeight(), tiles);
+    }
+
+    private void loadMapData() {
+        if(isInstance) {
+            this.mapData = new MapDataInstanceBuilder().build();
+        } else {
+            this.mapData = new MapDataReader().read(mapName.getPath());
+        }
     }
 
     private void loadTilesFromMapData() {
