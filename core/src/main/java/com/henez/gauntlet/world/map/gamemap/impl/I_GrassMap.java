@@ -9,8 +9,5 @@ public class I_GrassMap extends GameMap {
 
     public I_GrassMap() {
         super(MapName.test_grass, true);
-        destinations.add(new TeleportDestination(40, 34, MapName.world, Facing.down));
-        boundsTeleport.setBoundsY(0, 45);
-        boundsTeleport.addDestFacingAll(new TeleportDestination(40, 34, MapName.world, Facing.down));
     }
 }

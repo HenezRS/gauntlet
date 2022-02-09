@@ -4,6 +4,7 @@ import com.henez.gauntlet.datastructures.Facing;
 import com.henez.gauntlet.datastructures.GameList;
 import com.henez.gauntlet.datastructures.Numbers;
 import com.henez.gauntlet.world.World;
+import com.henez.gauntlet.world.map.MapController;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,10 +33,10 @@ public final class TileUtils {
         int count = 0;
         boolean isCardinal = false;
 
-        int startX = Numbers.clamp(tileStack.getGx()-1, 0, World.MAP_GW-1);
-        int endX = Numbers.clamp(tileStack.getGx()+1, 0, World.MAP_GW-1);
-        int startY = Numbers.clamp(tileStack.getGy()-1, 0, World.MAP_GH-1);
-        int endY = Numbers.clamp(tileStack.getGy()+1, 0, World.MAP_GH-1);
+        int startX = Numbers.clamp(tileStack.getGx()-1, 0, MapController.MAP_GW-1);
+        int endX = Numbers.clamp(tileStack.getGx()+1, 0, MapController.MAP_GW-1);
+        int startY = Numbers.clamp(tileStack.getGy()-1, 0, MapController.MAP_GH-1);
+        int endY = Numbers.clamp(tileStack.getGy()+1, 0, MapController.MAP_GH-1);
 
         for(int i=startX; i<=endX; ++i) {
             for(int j=startY; j<=endY; ++j) {
@@ -68,10 +69,10 @@ public final class TileUtils {
     public static Facing findFirstFacingToTileName(TileStack tileStack, GameList<TileStack> tileStacks, TileName tileName, TileKey key, boolean cardinalOnly) {
         boolean isCardinal = false;
 
-        int startX = Numbers.clamp(tileStack.getGx()-1, 0, World.MAP_GW-1);
-        int endX = Numbers.clamp(tileStack.getGx()+1, 0, World.MAP_GW-1);
-        int startY = Numbers.clamp(tileStack.getGy()-1, 0, World.MAP_GH-1);
-        int endY = Numbers.clamp(tileStack.getGy()+1, 0, World.MAP_GH-1);
+        int startX = Numbers.clamp(tileStack.getGx()-1, 0, MapController.MAP_GW-1);
+        int endX = Numbers.clamp(tileStack.getGx()+1, 0, MapController.MAP_GW-1);
+        int startY = Numbers.clamp(tileStack.getGy()-1, 0, MapController.MAP_GH-1);
+        int endY = Numbers.clamp(tileStack.getGy()+1, 0, MapController.MAP_GH-1);
 
         for(int i=startX; i<=endX; ++i) {
             for(int j=startY; j<=endY; ++j) {
@@ -92,10 +93,10 @@ public final class TileUtils {
         GameList<TileStack> ts = new GameList<>();
         boolean isCardinal = false;
 
-        int startX = Numbers.clamp(tileStack.getGx()-1, 0, World.MAP_GW-1);
-        int endX = Numbers.clamp(tileStack.getGx()+1, 0, World.MAP_GW-1);
-        int startY = Numbers.clamp(tileStack.getGy()-1, 0, World.MAP_GH-1);
-        int endY = Numbers.clamp(tileStack.getGy()+1, 0, World.MAP_GH-1);
+        int startX = Numbers.clamp(tileStack.getGx()-1, 0, MapController.MAP_GW-1);
+        int endX = Numbers.clamp(tileStack.getGx()+1, 0, MapController.MAP_GW-1);
+        int startY = Numbers.clamp(tileStack.getGy()-1, 0, MapController.MAP_GH-1);
+        int endY = Numbers.clamp(tileStack.getGy()+1, 0, MapController.MAP_GH-1);
 
         for(int i=startX; i<=endX; ++i) {
             for(int j=startY; j<=endY; ++j) {

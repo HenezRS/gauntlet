@@ -21,8 +21,6 @@ import java.util.Optional;
 
 @Getter
 public class World {
-    public static int MAP_GW;
-    public static int MAP_GH;
     public static Timer globalTimer = new Timer();
 
     private Camera camera = Camera.getInstance();

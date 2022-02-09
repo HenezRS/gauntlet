@@ -70,6 +70,6 @@ public class InstanceGenerator {
     }
 
     private boolean roomSpaceFree(XY xy) {
-        return map.containsKey(xy);
+        return !map.containsKey(xy);
     }
 }

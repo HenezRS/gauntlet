@@ -7,6 +7,8 @@ import lombok.Getter;
 @Getter
 public class MapController {
     private static MapController map = null;
+    public static int MAP_GW = 0;
+    public static int MAP_GH = 0;
 
     private GameMap currentMap;
     private ImgMapBack mapBack;

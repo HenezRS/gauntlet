@@ -54,7 +54,7 @@ public class Minimap {
         currentRaw = new Color[w][h];
         bounds = gameMap.getBoundsTeleport();
         startXy = new GameList<>();
-        gameMap.getDestinations().forEach(tp -> {
+        gameMap.getStepTiles().forEach(tp -> {
             startXy.add(new XY(tp.getGx(),tp.getGy()));
         });
         startXy.add(new XY(player.getGx(), player.getGy()));
@@ -108,7 +108,7 @@ public class Minimap {
                         toDraw[i][j] = T.yes;
 
                         TileStack ts = gameMap.getTileStackAt(i,j);
-                        if(ts.isWalkableWithoutRules()) {
+                        if(ts != null && ts.isWalkableWithoutRules()) {
                             check(i, j, gameMap);
                         }
                     }
@@ -129,7 +129,7 @@ public class Minimap {
             for(int j=y-1; j<y+2; ++j) {
                 if(!diag && !(i==x && j==y) && inBounds(i, j) && toDraw[i][j]==T.no) {
                     toDraw[i][j] = T.check;
-                    walkable[i][j] = gameMap.getTileStackAt(i,j).isWalkableWithoutRules();
+                    walkable[i][j] = gameMap.getTileStackAt(i, j) != null && gameMap.getTileStackAt(i, j).isWalkableWithoutRules();
                 }
                 diag = !diag;
             }

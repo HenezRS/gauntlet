@@ -15,6 +15,8 @@ public class Constants {
     public static int windowPixelH = cameraPixelH * gameScale; //810 - tiles: 16.8
     public static int tilePixelSize = 16;
     public static int tilesDocumentWidthInTiles = 32;
+    public static int instanceRoomTileW = 30;
+    public static int instanceRoomTileH = 16;
 
     public static int SEC = 60;
     public static int SEC2 = SEC / 2;
